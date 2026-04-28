@@ -41,6 +41,8 @@ function bindEvents() {
   document.addEventListener('keydown', handleKeyboardShortcuts);
   bindDropZone();
   bindTreeSelection();
+  bindResizeHandle();
+  restoreSplitSize();
   restoreLastInput();
   exposeNamespace();
 }
@@ -91,6 +93,59 @@ function exposeNamespace() {
     jsonToYaml: jsonToYaml,
     buildGraphSvg: buildGraphSvg
   };
+}
+
+function bindResizeHandle() {
+  var layout = document.querySelector('.layout');
+  var handle = document.getElementById('resizeHandle');
+  if (!layout || !handle) return;
+
+  handle.addEventListener('pointerdown', function(event) {
+    if (window.matchMedia('(max-width: 900px)').matches) return;
+    event.preventDefault();
+    handle.setPointerCapture(event.pointerId);
+    layout.classList.add('resizing');
+
+    function onPointerMove(moveEvent) {
+      var rect = layout.getBoundingClientRect();
+      var handleWidth = handle.offsetWidth || 12;
+      var leftWidth = moveEvent.clientX - rect.left;
+      var percent = Math.max(25, Math.min(75, (leftWidth / rect.width) * 100));
+      setSplitSize(percent, handleWidth);
+    }
+
+    function onPointerUp() {
+      layout.classList.remove('resizing');
+      handle.removeEventListener('pointermove', onPointerMove);
+      handle.removeEventListener('pointerup', onPointerUp);
+      handle.removeEventListener('pointercancel', onPointerUp);
+      try {
+        localStorage.setItem(SPLIT_STORAGE_KEY, layout.getAttribute('data-split-percent') || '50');
+      } catch (e) {}
+    }
+
+    handle.addEventListener('pointermove', onPointerMove);
+    handle.addEventListener('pointerup', onPointerUp);
+    handle.addEventListener('pointercancel', onPointerUp);
+  });
+}
+
+function setSplitSize(percent, handleWidth) {
+  var layout = document.querySelector('.layout');
+  if (!layout) return;
+  handleWidth = handleWidth || 12;
+  var rightPercent = 100 - percent;
+  layout.style.gridTemplateColumns = 'minmax(280px, ' + percent + 'fr) ' + handleWidth + 'px minmax(280px, ' + rightPercent + 'fr)';
+  layout.setAttribute('data-split-percent', String(Math.round(percent)));
+}
+
+function restoreSplitSize() {
+  try {
+    var saved = Number(localStorage.getItem(SPLIT_STORAGE_KEY));
+    if (saved >= 25 && saved <= 75 && !window.matchMedia('(max-width: 900px)').matches) {
+      setSplitSize(saved, 12);
+    }
+  } catch (e) {}
 }
 
 document.addEventListener('DOMContentLoaded', bindEvents);

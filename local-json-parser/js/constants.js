@@ -3,6 +3,7 @@ var hasValidJson = false;
 var autoFormatTimer = null;
 var activeOutputId = 'output';
 var STORAGE_KEY = 'local-json-parser:last-input';
+var SPLIT_STORAGE_KEY = 'local-json-parser:split-percent';
 
 var SQL_RESERVED = {
   select: true, from: true, where: true, table: true, group: true, order: true, by: true,

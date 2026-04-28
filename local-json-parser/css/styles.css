@@ -199,8 +199,39 @@ button.primary:hover {
 
 .layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 14px;
+  grid-template-columns: minmax(280px, 1fr) 12px minmax(280px, 1fr);
+  gap: 8px;
+  align-items: stretch;
+}
+
+.resize-handle {
+  border-radius: 999px;
+  background: transparent;
+  cursor: col-resize;
+  position: relative;
+  min-height: 560px;
+}
+
+.resize-handle::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 12px;
+  bottom: 12px;
+  width: 4px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: var(--border);
+}
+
+.resize-handle:hover::before,
+.layout.resizing .resize-handle::before {
+  background: var(--accent);
+}
+
+.layout.resizing {
+  user-select: none;
+  cursor: col-resize;
 }
 
 .panel {
@@ -388,6 +419,11 @@ pre {
 
   .layout {
     grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .resize-handle {
+    display: none;
   }
 
   .utility-bar {

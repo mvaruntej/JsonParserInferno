@@ -16,7 +16,7 @@ const ids = [
   'status', 'stats', 'output', 'sqlOutput', 'modelsOutput', 'typescriptOutput',
   'schemaOutput', 'jsonPathOutput', 'convertedOutput', 'jwtOutput', 'graphOutput', 'tree', 'outputHint',
   'rootName', 'sqlDialect', 'modelLanguage', 'treeSearch', 'jsonPathInput',
-  'jsonPathButton', 'clearStorageButton', 'dropZone'
+  'jsonPathButton', 'clearStorageButton', 'dropZone', 'resizeHandle'
 ];
 
 function createClassList() {
@@ -38,8 +38,13 @@ ids.forEach((id) => {
     value: '',
     textContent: '',
     innerHTML: '',
+    style: {},
     outerHTML: id === 'stats' ? '<span class="stats" id="stats">Characters: 0</span>' : '',
+    offsetWidth: id === 'resizeHandle' ? 12 : 0,
     classList: createClassList(),
+    setAttribute(name, value) { this[name] = value; },
+    getAttribute(name) { return this[name]; },
+    setPointerCapture() {},
     addEventListener(type, fn) { this[`on${type}`] = fn; },
     querySelectorAll() { return []; },
     contains() { return true; },
@@ -62,6 +67,16 @@ global.document = {
   addEventListener(type, fn) {
     if (type === 'DOMContentLoaded') fn();
   },
+  querySelector(selector) {
+    if (selector === '.layout') return elements.layout || (elements.layout = {
+      style: {},
+      classList: createClassList(),
+      getBoundingClientRect: () => ({ left: 0, width: 1000 }),
+      setAttribute(name, value) { this[name] = value; },
+      getAttribute(name) { return this[name]; }
+    });
+    return null;
+  },
   body: { appendChild() {}, removeChild() {} }
 };
 global.navigator = { clipboard: { writeText: () => Promise.resolve() } };
@@ -75,6 +90,7 @@ global.localStorage = {
   setItem(key, value) { this.store[key] = String(value); },
   removeItem(key) { delete this.store[key]; }
 };
+global.window.matchMedia = () => ({ matches: false });
 
 [
   'constants.js',
