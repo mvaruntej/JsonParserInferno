@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Local JSON Parser</title>
+  <link rel="stylesheet" href="./local-json-parser/css/styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Local JSON Parser</h1>
+    <p>Paste JSON, validate it, format it, minify it, view it as a tree, and download the result. Runs fully offline in your browser.</p>
+  </header>
+
+  <main>
+    <div class="toolbar">
+      <button id="formatButton" class="primary">Validate / Format</button>
+      <button id="minifyButton">Minify</button>
+      <button id="escapeButton">Escape String</button>
+      <button id="unescapeButton">Unescape String</button>
+      <button id="copyButton">Copy Output</button>
+      <button id="downloadButton">Download JSON</button>
+      <button id="clearButton">Clear</button>
+      <button id="sampleButton">Sample</button>
+      <span class="divider"></span>
+      <button id="generateSqlButton" class="primary">Generate SQL</button>
+      <button id="generateModelsButton">Generate Models</button>
+      <button id="generateBothButton">Generate Both</button>
+      <select id="sqlDialect">
+        <option value="postgres">PostgreSQL</option>
+        <option value="mysql">MySQL</option>
+        <option value="sqlite">SQLite</option>
+      </select>
+      <select id="modelLanguage">
+        <option value="python">Python Models</option>
+        <option value="java">Java Models</option>
+        <option value="go">Go Structs</option>
+      </select>
+      <input type="text" id="rootName" value="api_response" aria-label="Root table name" title="Root table/class name" />
+      <select id="indentSize">
+        <option value="2">Indent: 2 spaces</option>
+        <option value="4">Indent: 4 spaces</option>
+        <option value="tab">Indent: Tab</option>
+      </select>
+      <input type="file" id="fileInput" accept=".json,application/json,text/plain" />
+    </div>
+
+    <div id="status" class="status">
+      <span class="warning">Paste JSON and click Validate / Format.</span>
+      <span class="stats" id="stats">Characters: 0</span>
+    </div>
+
+    <div class="layout">
+      <section class="panel">
+        <div class="panel-title">
+          <span>Input JSON</span>
+          <span class="hint">Editable</span>
+        </div>
+        <textarea id="input" placeholder='Example: {"name":"Varun","active":true}'></textarea>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title">
+          <span>Output</span>
+          <span class="hint" id="outputHint">Formatted JSON</span>
+        </div>
+        <div class="output-tabs">
+          <span class="tab active" id="formattedTab">Formatted</span>
+          <span class="tab" id="treeTab">Tree View</span>
+          <span class="tab" id="sqlTab">SQL DDL</span>
+          <span class="tab" id="modelsTab">Models</span>
+        </div>
+        <pre id="output"></pre>
+        <pre id="sqlOutput" class="hidden"></pre>
+        <pre id="modelsOutput" class="hidden"></pre>
+        <div id="tree" class="tree hidden"></div>
+      </section>
+    </div>
+  </main>
+
+  <script src="./local-json-parser/js/constants.js"></script>
+  <script src="./local-json-parser/js/ui.js"></script>
+  <script src="./local-json-parser/js/tree-view.js"></script>
+  <script src="./local-json-parser/js/parser.js"></script>
+  <script src="./local-json-parser/js/schema.js"></script>
+  <script src="./local-json-parser/js/sql-generator.js"></script>
+  <script src="./local-json-parser/js/model-generator.js"></script>
+  <script src="./local-json-parser/js/file-actions.js"></script>
+  <script src="./local-json-parser/js/app.js"></script>
+</body>
+</html>
+
