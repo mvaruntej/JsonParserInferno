@@ -38,8 +38,24 @@
         <span class="group-label">Generate</span>
         <button id="generateSqlButton">SQL</button>
         <button id="generateModelsButton">Models</button>
+        <button id="generateTypescriptButton">TypeScript</button>
         <button id="generateSchemaButton">Schema</button>
         <button id="generateBothButton">SQL + Models</button>
+      </div>
+
+      <div class="tool-group">
+        <span class="group-label">Convert</span>
+        <button id="jsonToCsvButton">CSV</button>
+        <button id="jsonToYamlButton">YAML</button>
+        <button id="decodeJwtButton">JWT</button>
+      </div>
+
+      <div class="tool-group">
+        <span class="group-label">View</span>
+        <button id="graphButton">Graph</button>
+        <button id="expandTreeButton">Expand</button>
+        <button id="collapseTreeButton">Collapse</button>
+        <button id="copyTreePathButton">Copy Path</button>
       </div>
 
       <div class="tool-group settings-group">
@@ -105,14 +121,22 @@
           <span class="tab" id="treeTab">Tree View</span>
           <span class="tab" id="sqlTab">SQL DDL</span>
           <span class="tab" id="modelsTab">Models</span>
+          <span class="tab" id="typescriptTab">TypeScript</span>
           <span class="tab" id="schemaTab">JSON Schema</span>
           <span class="tab" id="jsonPathTab">JSONPath</span>
+          <span class="tab" id="graphTab">Graph</span>
+          <span class="tab" id="convertedTab">Converted</span>
+          <span class="tab" id="jwtTab">JWT</span>
         </div>
         <pre id="output"></pre>
         <pre id="sqlOutput" class="hidden"></pre>
         <pre id="modelsOutput" class="hidden"></pre>
+        <pre id="typescriptOutput" class="hidden"></pre>
         <pre id="schemaOutput" class="hidden"></pre>
         <pre id="jsonPathOutput" class="hidden"></pre>
+        <pre id="convertedOutput" class="hidden"></pre>
+        <pre id="jwtOutput" class="hidden"></pre>
+        <div id="graphOutput" class="graph-output hidden"></div>
         <div id="tree" class="tree hidden"></div>
       </section>
     </div>
@@ -125,8 +149,12 @@
   <script src="./local-json-parser/js/schema.js"></script>
   <script src="./local-json-parser/js/sql-generator.js"></script>
   <script src="./local-json-parser/js/model-generator.js"></script>
+  <script src="./local-json-parser/js/typescript-generator.js"></script>
   <script src="./local-json-parser/js/json-schema.js"></script>
   <script src="./local-json-parser/js/jsonpath.js"></script>
+  <script src="./local-json-parser/js/converters.js"></script>
+  <script src="./local-json-parser/js/graph-view.js"></script>
+  <script src="./local-json-parser/js/jwt.js"></script>
   <script src="./local-json-parser/js/file-actions.js"></script>
   <script src="./local-json-parser/js/app.js"></script>
 </body>

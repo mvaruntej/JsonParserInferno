@@ -10,7 +10,15 @@ function bindEvents() {
   document.getElementById('generateSqlButton').addEventListener('click', generateSql);
   document.getElementById('generateModelsButton').addEventListener('click', generateModels);
   document.getElementById('generateBothButton').addEventListener('click', generateBoth);
+  document.getElementById('generateTypescriptButton').addEventListener('click', generateTypescript);
   document.getElementById('generateSchemaButton').addEventListener('click', generateJsonSchema);
+  document.getElementById('jsonToCsvButton').addEventListener('click', convertJsonToCsv);
+  document.getElementById('jsonToYamlButton').addEventListener('click', convertJsonToYaml);
+  document.getElementById('decodeJwtButton').addEventListener('click', decodeJwt);
+  document.getElementById('graphButton').addEventListener('click', generateGraphView);
+  document.getElementById('expandTreeButton').addEventListener('click', expandTree);
+  document.getElementById('collapseTreeButton').addEventListener('click', collapseTree);
+  document.getElementById('copyTreePathButton').addEventListener('click', copySelectedTreePath);
   document.getElementById('indentSize').addEventListener('change', formatJson);
   document.getElementById('fileInput').addEventListener('change', loadFile);
   document.getElementById('input').addEventListener('input', handleInputChange);
@@ -24,10 +32,15 @@ function bindEvents() {
   document.getElementById('treeTab').addEventListener('click', function() { showTab('tree'); });
   document.getElementById('sqlTab').addEventListener('click', function() { showTab('sql'); });
   document.getElementById('modelsTab').addEventListener('click', function() { showTab('models'); });
+  document.getElementById('typescriptTab').addEventListener('click', function() { showTab('typescript'); });
   document.getElementById('schemaTab').addEventListener('click', function() { showTab('schema'); });
   document.getElementById('jsonPathTab').addEventListener('click', function() { showTab('jsonpath'); });
+  document.getElementById('graphTab').addEventListener('click', function() { showTab('graph'); });
+  document.getElementById('convertedTab').addEventListener('click', function() { showTab('converted'); });
+  document.getElementById('jwtTab').addEventListener('click', function() { showTab('jwt'); });
   document.addEventListener('keydown', handleKeyboardShortcuts);
   bindDropZone();
+  bindTreeSelection();
   restoreLastInput();
   exposeNamespace();
 }
@@ -71,8 +84,12 @@ function exposeNamespace() {
     buildSchema: buildSchema,
     buildSql: buildSql,
     buildModels: buildModels,
+    buildTypescriptInterfaces: buildTypescriptInterfaces,
     buildJsonSchema: buildJsonSchema,
-    evaluateJsonPath: evaluateJsonPath
+    evaluateJsonPath: evaluateJsonPath,
+    jsonToCsv: jsonToCsv,
+    jsonToYaml: jsonToYaml,
+    buildGraphSvg: buildGraphSvg
   };
 }
 

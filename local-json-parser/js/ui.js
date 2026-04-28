@@ -40,27 +40,43 @@ function showTab(tab) {
   var output = document.getElementById('output');
   var sqlOutput = document.getElementById('sqlOutput');
   var modelsOutput = document.getElementById('modelsOutput');
+  var typescriptOutput = document.getElementById('typescriptOutput');
   var schemaOutput = document.getElementById('schemaOutput');
   var jsonPathOutput = document.getElementById('jsonPathOutput');
+  var convertedOutput = document.getElementById('convertedOutput');
+  var jwtOutput = document.getElementById('jwtOutput');
+  var graphOutput = document.getElementById('graphOutput');
   var tree = document.getElementById('tree');
   var formattedTab = document.getElementById('formattedTab');
   var treeTab = document.getElementById('treeTab');
   var sqlTab = document.getElementById('sqlTab');
   var modelsTab = document.getElementById('modelsTab');
+  var typescriptTab = document.getElementById('typescriptTab');
   var schemaTab = document.getElementById('schemaTab');
   var jsonPathTab = document.getElementById('jsonPathTab');
+  var convertedTab = document.getElementById('convertedTab');
+  var graphTab = document.getElementById('graphTab');
+  var jwtTab = document.getElementById('jwtTab');
   output.classList.add('hidden');
   sqlOutput.classList.add('hidden');
   modelsOutput.classList.add('hidden');
+  typescriptOutput.classList.add('hidden');
   schemaOutput.classList.add('hidden');
   jsonPathOutput.classList.add('hidden');
+  convertedOutput.classList.add('hidden');
+  jwtOutput.classList.add('hidden');
+  graphOutput.classList.add('hidden');
   tree.classList.add('hidden');
   formattedTab.classList.remove('active');
   treeTab.classList.remove('active');
   sqlTab.classList.remove('active');
   modelsTab.classList.remove('active');
+  typescriptTab.classList.remove('active');
   schemaTab.classList.remove('active');
   jsonPathTab.classList.remove('active');
+  convertedTab.classList.remove('active');
+  graphTab.classList.remove('active');
+  jwtTab.classList.remove('active');
   if (tab === 'tree') {
     tree.classList.remove('hidden');
     treeTab.classList.add('active');
@@ -84,6 +100,14 @@ function showTab(tab) {
     if (!modelsOutput.textContent) {
       modelsOutput.textContent = 'Click Generate Models to create boilerplate from valid JSON.';
     }
+  } else if (tab === 'typescript') {
+    typescriptOutput.classList.remove('hidden');
+    typescriptTab.classList.add('active');
+    activeOutputId = 'typescriptOutput';
+    document.getElementById('outputHint').textContent = 'TypeScript Interfaces';
+    if (!typescriptOutput.textContent) {
+      typescriptOutput.textContent = 'Click TypeScript to generate interfaces from valid JSON.';
+    }
   } else if (tab === 'schema') {
     schemaOutput.classList.remove('hidden');
     schemaTab.classList.add('active');
@@ -100,12 +124,64 @@ function showTab(tab) {
     if (!jsonPathOutput.textContent) {
       jsonPathOutput.textContent = 'Enter a JSONPath expression and click Run JSONPath.';
     }
+  } else if (tab === 'converted') {
+    convertedOutput.classList.remove('hidden');
+    convertedTab.classList.add('active');
+    activeOutputId = 'convertedOutput';
+    document.getElementById('outputHint').textContent = 'Converted Output';
+    if (!convertedOutput.textContent) {
+      convertedOutput.textContent = 'Click CSV or YAML to convert valid JSON.';
+    }
+  } else if (tab === 'graph') {
+    graphOutput.classList.remove('hidden');
+    graphTab.classList.add('active');
+    activeOutputId = 'graphOutput';
+    document.getElementById('outputHint').textContent = 'Graph View';
+    if (!graphOutput.innerHTML) {
+      graphOutput.innerHTML = '<span class="warning">Click Graph to generate a visual view.</span>';
+    }
+  } else if (tab === 'jwt') {
+    jwtOutput.classList.remove('hidden');
+    jwtTab.classList.add('active');
+    activeOutputId = 'jwtOutput';
+    document.getElementById('outputHint').textContent = 'JWT Decoder';
+    if (!jwtOutput.textContent) {
+      jwtOutput.textContent = 'Paste a JWT and click JWT.';
+    }
   } else {
     output.classList.remove('hidden');
     formattedTab.classList.add('active');
     activeOutputId = 'output';
     document.getElementById('outputHint').textContent = 'Formatted JSON';
   }
+}
+
+function expandTree() {
+  document.querySelectorAll('#tree details').forEach(function(details) {
+    details.open = true;
+  });
+  showTab('tree');
+}
+
+function collapseTree() {
+  document.querySelectorAll('#tree details').forEach(function(details) {
+    details.open = false;
+  });
+  showTab('tree');
+}
+
+function copySelectedTreePath() {
+  var selected = document.querySelector('#tree .tree-selected');
+  if (!selected) {
+    setStatus('Select a tree row first', 'warning');
+    return;
+  }
+  var path = selected.getAttribute('data-path') || '$';
+  navigator.clipboard.writeText(path).then(function() {
+    setStatus('Copied path: ' + path, 'valid');
+  }).catch(function() {
+    setStatus('Tree path: ' + path, 'warning');
+  });
 }
 
 function saveLastInput() {

@@ -12,7 +12,8 @@
 }
 
 function downloadOutput() {
-  var text = document.getElementById(activeOutputId).textContent;
+  var element = document.getElementById(activeOutputId);
+  var text = activeOutputId === 'graphOutput' ? element.innerHTML : element.textContent;
   if (!text) {
     setStatus('No output to download', 'warning');
     return;
@@ -53,8 +54,12 @@ function clearAll() {
   document.getElementById('output').textContent = '';
   document.getElementById('sqlOutput').textContent = '';
   document.getElementById('modelsOutput').textContent = '';
+  document.getElementById('typescriptOutput').textContent = '';
   document.getElementById('schemaOutput').textContent = '';
   document.getElementById('jsonPathOutput').textContent = '';
+  document.getElementById('convertedOutput').textContent = '';
+  document.getElementById('jwtOutput').textContent = '';
+  document.getElementById('graphOutput').innerHTML = '';
   document.getElementById('tree').innerHTML = '';
   currentJson = null;
   hasValidJson = false;
@@ -121,8 +126,12 @@ function getDownloadInfo() {
     if (language === 'go') return { name: 'models.go', type: 'text/plain' };
     return { name: 'models.py', type: 'text/plain' };
   }
+  if (activeOutputId === 'typescriptOutput') return { name: 'models.ts', type: 'text/plain' };
   if (activeOutputId === 'schemaOutput') return { name: 'json-schema.json', type: 'application/schema+json' };
   if (activeOutputId === 'jsonPathOutput') return { name: 'jsonpath-result.json', type: 'application/json' };
+  if (activeOutputId === 'convertedOutput') return { name: 'converted-output.txt', type: 'text/plain' };
+  if (activeOutputId === 'jwtOutput') return { name: 'decoded-jwt.json', type: 'application/json' };
+  if (activeOutputId === 'graphOutput') return { name: 'json-graph.svg', type: 'image/svg+xml' };
   return { name: 'formatted-json.json', type: 'application/json' };
 }
 

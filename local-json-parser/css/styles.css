@@ -314,11 +314,30 @@ pre {
 .tree li { margin: 4px 0; }
 .tree summary { cursor: pointer; }
 .tree li.tree-hidden { display: none; }
+.tree .tree-selected,
+.tree [data-path].tree-selected {
+  outline: 2px solid #93c5fd;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
 .tree .tree-match > details > summary,
 .tree .tree-match > .key,
 .tree .tree-match {
   background: #fef3c7;
   border-radius: 4px;
+}
+
+.graph-output {
+  flex: 1;
+  min-height: 520px;
+  overflow: auto;
+  background: #fff;
+  padding: 12px;
+}
+
+.graph-output svg {
+  display: block;
+  max-width: none;
 }
 
 .key { color: #6d28d9; font-weight: 700; }

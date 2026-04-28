@@ -46,8 +46,12 @@ function formatJson() {
     document.getElementById('output').textContent = '';
     document.getElementById('sqlOutput').textContent = '';
     document.getElementById('modelsOutput').textContent = '';
+    document.getElementById('typescriptOutput').textContent = '';
     document.getElementById('schemaOutput').textContent = '';
     document.getElementById('jsonPathOutput').textContent = '';
+    document.getElementById('convertedOutput').textContent = '';
+    document.getElementById('jwtOutput').textContent = '';
+    document.getElementById('graphOutput').innerHTML = '';
     document.getElementById('tree').innerHTML = '';
     setStatus('Paste JSON and click Validate / Format.', 'warning');
     updateStats();
