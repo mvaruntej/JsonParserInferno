@@ -3,16 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Local JSON Parser</title>
+  <title>JSON Studio</title>
   <link rel="stylesheet" href="./local-json-parser/css/styles.css" />
 </head>
 <body>
-  <header>
-    <div>
-      <h1>Local JSON Parser</h1>
-      <p>Validate, transform, inspect, and generate code from JSON. Everything runs offline in your browser.</p>
+  <header class="site-header">
+    <div class="brand-block">
+      <h1>JSON Studio</h1>
+      <p>Format, validate, visualize, convert, and generate from JSON.</p>
     </div>
-    <span class="offline-badge">Offline</span>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="#input">Format</a>
+      <a href="#treeTab">Tree</a>
+      <a href="#graphTab">Graph</a>
+      <a href="#convertedTab">Convert</a>
+      <a href="#modelsTab">Generate</a>
+    </nav>
+    <span class="browser-badge">Runs in your browser</span>
   </header>
 
   <main>
@@ -140,6 +147,26 @@
       </section>
     </div>
   </main>
+
+  <footer class="site-footer">
+    <div>
+      <h2>JSON Studio</h2>
+      <p>A browser-based JSON workspace for developers.</p>
+    </div>
+    <div>
+      <h3>Tools</h3>
+      <p>Format, Tree, Graph, JSONPath, Schema, CSV, YAML, SQL, Models, JWT</p>
+    </div>
+    <div>
+      <h3>Privacy</h3>
+      <p>Your JSON is processed in your browser by this page.</p>
+    </div>
+    <div>
+      <h3>Links</h3>
+      <p><a href="#">About</a> <a href="#">Privacy</a> <a href="#">Contact</a> <a href="#">GitHub</a></p>
+    </div>
+    <div class="footer-bottom">© 2026 JSON Studio</div>
+  </footer>
 
   <script src="./local-json-parser/js/constants.js"></script>
   <script src="./local-json-parser/js/ui.js"></script>
