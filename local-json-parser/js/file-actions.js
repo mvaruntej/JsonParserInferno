@@ -89,6 +89,7 @@ function loadSample() {
     score: 99.5,
     value: null
   }, null, 2);
+  markGeneratedOutputsStale();
   formatJson();
 }
 
@@ -99,6 +100,7 @@ function loadFile(event) {
       reader.onload = function(e) {
     document.getElementById('input').value = e.target.result;
     saveLastInput();
+    markGeneratedOutputsStale();
     updateStats();
     formatJson();
   };
@@ -111,6 +113,7 @@ function loadDroppedFile(file) {
   reader.onload = function(e) {
     document.getElementById('input').value = e.target.result;
     saveLastInput();
+    markGeneratedOutputsStale();
     updateStats();
     formatJson();
   };

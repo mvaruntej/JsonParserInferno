@@ -363,12 +363,45 @@ pre {
   min-height: 520px;
   overflow: auto;
   background: #fff;
-  padding: 12px;
+  padding: 0;
+  position: relative;
+  cursor: grab;
+  touch-action: none;
+}
+
+.graph-output.panning {
+  cursor: grabbing;
 }
 
 .graph-output svg {
   display: block;
   max-width: none;
+}
+
+.graph-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid var(--border-soft);
+  color: var(--muted);
+  font-size: 12px;
+  cursor: default;
+}
+
+.graph-toolbar button {
+  min-height: 28px;
+  padding: 4px 9px;
+  font-size: 12px;
+}
+
+.graph-svg {
+  min-width: 100%;
+  min-height: 520px;
 }
 
 .key { color: #6d28d9; font-weight: 700; }

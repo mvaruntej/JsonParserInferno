@@ -27,6 +27,7 @@ function updateStats() {
 function handleInputChange() {
   updateStats();
   saveLastInput();
+  markGeneratedOutputsStale();
   scheduleAutoFormat();
 }
 
@@ -195,6 +196,16 @@ function clearSavedInput() {
   } catch (e) {
     setStatus('Could not clear saved input: ' + e.message, 'warning');
   }
+}
+
+function markGeneratedOutputsStale() {
+  document.getElementById('sqlOutput').textContent = 'Input changed. Click SQL to refresh this output.';
+  document.getElementById('modelsOutput').textContent = 'Input changed. Click Models to refresh this output.';
+  document.getElementById('schemaOutput').textContent = 'Input changed. Click Schema to refresh this output.';
+  document.getElementById('jsonPathOutput').textContent = 'Input changed. Click Run JSONPath to refresh this output.';
+  document.getElementById('convertedOutput').textContent = 'Input changed. Click CSV or YAML to refresh this output.';
+  document.getElementById('jwtOutput').textContent = 'Input changed. Click JWT to decode the current input.';
+  document.getElementById('graphOutput').innerHTML = '<span class="warning">Input changed. Click Graph to refresh this output.</span>';
 }
 
 function filterTree() {

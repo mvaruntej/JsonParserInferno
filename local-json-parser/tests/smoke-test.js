@@ -9,14 +9,14 @@ const ids = [
   'formatButton', 'minifyButton', 'escapeButton', 'unescapeButton', 'copyButton',
   'downloadButton', 'clearButton', 'sampleButton', 'generateSqlButton',
   'generateModelsButton', 'generateBothButton',
-  'generateSchemaButton', 'jsonToCsvButton', 'jsonToYamlButton', 'decodeJwtButton',
+  'jsonToCsvButton', 'jsonToYamlButton', 'decodeJwtButton',
   'graphButton', 'expandTreeButton', 'collapseTreeButton', 'copyTreePathButton',
   'indentSize', 'fileInput', 'input', 'formattedTab', 'treeTab', 'sqlTab', 'modelsTab',
   'schemaTab', 'jsonPathTab', 'graphTab', 'convertedTab', 'jwtTab',
   'status', 'stats', 'output', 'sqlOutput', 'modelsOutput',
   'schemaOutput', 'jsonPathOutput', 'convertedOutput', 'jwtOutput', 'graphOutput', 'tree', 'outputHint',
   'rootName', 'sqlDialect', 'modelLanguage', 'treeSearch', 'jsonPathInput',
-  'jsonPathButton', 'clearStorageButton', 'dropZone', 'resizeHandle'
+  'jsonPathButton', 'clearStorageButton', 'dropZone', 'resizeHandle', 'graphViewport'
 ];
 
 function createClassList() {
@@ -47,6 +47,7 @@ ids.forEach((id) => {
     setPointerCapture() {},
     addEventListener(type, fn) { this[`on${type}`] = fn; },
     querySelectorAll() { return []; },
+    querySelector() { return null; },
     contains() { return true; },
     closest() { return null; }
   };
@@ -134,6 +135,17 @@ elements.input.value = JSON.stringify({
 generateSql();
 if (!elements.sqlOutput.textContent.includes('CREATE TABLE')) throw new Error('SQL output missing CREATE TABLE');
 
+elements.input.value = JSON.stringify({ changed: true });
+handleInputChange();
+if (!elements.sqlOutput.textContent.includes('Input changed')) throw new Error('SQL output was not marked stale after input change');
+if (!elements.modelsOutput.textContent.includes('Input changed')) throw new Error('Models output was not marked stale after input change');
+elements.input.value = JSON.stringify({
+  name: 'Varun',
+  active: true,
+  orders: [{ items: [{ sku: 'A1', qty: 2 }] }]
+});
+formatJson();
+
 generateModels();
 if (!elements.modelsOutput.textContent.includes('class')) throw new Error('Model output missing Python class');
 
@@ -142,7 +154,7 @@ generateModels();
 if (!elements.modelsOutput.textContent.includes('export interface')) throw new Error('TypeScript model output missing interface');
 elements.modelLanguage.value = 'python';
 
-generateJsonSchema();
+elements.schemaTab.onclick();
 if (!elements.schemaOutput.textContent.includes('"$schema"')) throw new Error('JSON Schema output missing $schema');
 
 runJsonPath();
@@ -155,7 +167,8 @@ convertJsonToYaml();
 if (!elements.convertedOutput.textContent.includes('orders:')) throw new Error('YAML output missing expected key');
 
 generateGraphView();
-if (!elements.graphOutput.innerHTML.includes('<svg')) throw new Error('Graph output missing SVG');
+if (!elements.graphOutput.innerHTML.includes('graph-svg')) throw new Error('Graph output missing SVG');
+if (!elements.graphOutput.innerHTML.includes('Graph view generated') && !elements.graphOutput.innerHTML.includes('graph-toolbar')) throw new Error('Graph output missing toolbar');
 
 elements.input.value = [
   Buffer.from(JSON.stringify({ alg: 'HS256', typ: 'JWT' })).toString('base64url'),
