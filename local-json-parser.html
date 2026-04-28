@@ -8,47 +8,74 @@
 </head>
 <body>
   <header>
-    <h1>Local JSON Parser</h1>
-    <p>Paste JSON, validate it, format it, minify it, view it as a tree, and download the result. Runs fully offline in your browser.</p>
+    <div>
+      <h1>Local JSON Parser</h1>
+      <p>Validate, transform, inspect, and generate code from JSON. Everything runs offline in your browser.</p>
+    </div>
+    <span class="offline-badge">Offline</span>
   </header>
 
   <main>
     <div class="toolbar">
-      <button id="formatButton" class="primary">Validate / Format</button>
-      <button id="minifyButton">Minify</button>
-      <button id="escapeButton">Escape String</button>
-      <button id="unescapeButton">Unescape String</button>
-      <button id="copyButton">Copy Output</button>
-      <button id="downloadButton">Download JSON</button>
-      <button id="clearButton">Clear</button>
-      <button id="sampleButton">Sample</button>
-      <span class="divider"></span>
-      <button id="generateSqlButton" class="primary">Generate SQL</button>
-      <button id="generateModelsButton">Generate Models</button>
-      <button id="generateBothButton">Generate Both</button>
-      <button id="generateSchemaButton">Generate Schema</button>
-      <select id="sqlDialect">
-        <option value="postgres">PostgreSQL</option>
-        <option value="mysql">MySQL</option>
-        <option value="sqlite">SQLite</option>
-      </select>
-      <select id="modelLanguage">
-        <option value="python">Python Models</option>
-        <option value="java">Java Models</option>
-        <option value="go">Go Structs</option>
-      </select>
-      <input type="text" id="rootName" value="api_response" aria-label="Root table name" title="Root table/class name" />
-      <select id="indentSize">
-        <option value="2">Indent: 2 spaces</option>
-        <option value="4">Indent: 4 spaces</option>
-        <option value="tab">Indent: Tab</option>
-      </select>
-      <input type="file" id="fileInput" accept=".json,application/json,text/plain" />
+      <div class="tool-group primary-group">
+        <span class="group-label">JSON</span>
+        <button id="formatButton" class="primary">Validate / Format</button>
+        <button id="minifyButton">Minify</button>
+        <select id="indentSize" aria-label="Indent size">
+          <option value="2">2 spaces</option>
+          <option value="4">4 spaces</option>
+          <option value="tab">Tab</option>
+        </select>
+      </div>
+
+      <div class="tool-group">
+        <span class="group-label">String</span>
+        <button id="escapeButton">Escape</button>
+        <button id="unescapeButton">Unescape</button>
+      </div>
+
+      <div class="tool-group">
+        <span class="group-label">Generate</span>
+        <button id="generateSqlButton">SQL</button>
+        <button id="generateModelsButton">Models</button>
+        <button id="generateSchemaButton">Schema</button>
+        <button id="generateBothButton">SQL + Models</button>
+      </div>
+
+      <div class="tool-group settings-group">
+        <span class="group-label">Settings</span>
+        <select id="sqlDialect" aria-label="SQL dialect">
+          <option value="postgres">PostgreSQL</option>
+          <option value="mysql">MySQL</option>
+          <option value="sqlite">SQLite</option>
+        </select>
+        <select id="modelLanguage" aria-label="Model language">
+          <option value="python">Python</option>
+          <option value="java">Java</option>
+          <option value="go">Go</option>
+        </select>
+        <input type="text" id="rootName" value="api_response" aria-label="Root table name" title="Root table/class name" />
+      </div>
+
+      <div class="tool-group file-group">
+        <span class="group-label">File</span>
+        <input type="file" id="fileInput" accept=".json,application/json,text/plain" />
+        <button id="copyButton">Copy</button>
+        <button id="downloadButton">Download</button>
+        <button id="sampleButton">Sample</button>
+        <button id="clearButton" class="danger-button">Clear</button>
+      </div>
     </div>
 
     <div class="utility-bar">
-      <input type="search" id="treeSearch" placeholder="Search tree keys or values output in Tree view" aria-label="Search tree" />
-      <input type="text" id="jsonPathInput" placeholder="JSONPath: $.orders[0].items" aria-label="JSONPath expression" />
+      <label class="utility-field">
+        <span>Tree Search</span>
+        <input type="search" id="treeSearch" placeholder="Key or value" aria-label="Search tree" />
+      </label>
+      <label class="utility-field utility-field-wide">
+        <span>JSONPath</span>
+        <input type="text" id="jsonPathInput" placeholder="$.orders[0].items" aria-label="JSONPath expression" />
+      </label>
       <button id="jsonPathButton">Run JSONPath</button>
       <button id="clearStorageButton">Clear Saved Input</button>
     </div>
@@ -64,7 +91,7 @@
           <span>Input JSON</span>
           <span class="hint">Editable</span>
         </div>
-        <div id="dropZone" class="drop-zone">Drop a JSON file here</div>
+        <div id="dropZone" class="drop-zone">Drop JSON file here or use the file picker above</div>
         <textarea id="input" placeholder='Example: {"name":"Varun","active":true}'></textarea>
       </section>
 
