@@ -10,7 +10,6 @@ function bindEvents() {
   document.getElementById('generateSqlButton').addEventListener('click', generateSql);
   document.getElementById('generateModelsButton').addEventListener('click', generateModels);
   document.getElementById('generateBothButton').addEventListener('click', generateBoth);
-  document.getElementById('generateTypescriptButton').addEventListener('click', generateTypescript);
   document.getElementById('generateSchemaButton').addEventListener('click', generateJsonSchema);
   document.getElementById('jsonToCsvButton').addEventListener('click', convertJsonToCsv);
   document.getElementById('jsonToYamlButton').addEventListener('click', convertJsonToYaml);
@@ -32,7 +31,6 @@ function bindEvents() {
   document.getElementById('treeTab').addEventListener('click', function() { showTab('tree'); });
   document.getElementById('sqlTab').addEventListener('click', function() { showTab('sql'); });
   document.getElementById('modelsTab').addEventListener('click', function() { showTab('models'); });
-  document.getElementById('typescriptTab').addEventListener('click', function() { showTab('typescript'); });
   document.getElementById('schemaTab').addEventListener('click', function() { showTab('schema'); });
   document.getElementById('jsonPathTab').addEventListener('click', function() { showTab('jsonpath'); });
   document.getElementById('graphTab').addEventListener('click', function() { showTab('graph'); });

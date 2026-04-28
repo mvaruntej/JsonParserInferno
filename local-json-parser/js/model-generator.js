@@ -22,6 +22,7 @@ function generateBoth() {
   setStatus('SQL DDL and model boilerplate generated', 'valid');
 }
 function buildModels(schema, language) {
+  if (language === 'typescript') return buildTypescriptInterfaces(schema);
   if (language === 'java') return buildJavaModels(schema);
   if (language === 'go') return buildGoModels(schema);
   return buildPythonModels(schema);
@@ -83,6 +84,7 @@ function goType(column) {
   return '*' + base;
 }
 function modelLanguageName(language) {
+  if (language === 'typescript') return 'TypeScript';
   if (language === 'java') return 'Java';
   if (language === 'go') return 'Go';
   return 'Python';

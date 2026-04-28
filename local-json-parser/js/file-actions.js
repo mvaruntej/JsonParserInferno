@@ -54,7 +54,6 @@ function clearAll() {
   document.getElementById('output').textContent = '';
   document.getElementById('sqlOutput').textContent = '';
   document.getElementById('modelsOutput').textContent = '';
-  document.getElementById('typescriptOutput').textContent = '';
   document.getElementById('schemaOutput').textContent = '';
   document.getElementById('jsonPathOutput').textContent = '';
   document.getElementById('convertedOutput').textContent = '';
@@ -124,9 +123,9 @@ function getDownloadInfo() {
     var language = document.getElementById('modelLanguage').value;
     if (language === 'java') return { name: 'Models.java', type: 'text/plain' };
     if (language === 'go') return { name: 'models.go', type: 'text/plain' };
+    if (language === 'typescript') return { name: 'models.ts', type: 'text/plain' };
     return { name: 'models.py', type: 'text/plain' };
   }
-  if (activeOutputId === 'typescriptOutput') return { name: 'models.ts', type: 'text/plain' };
   if (activeOutputId === 'schemaOutput') return { name: 'json-schema.json', type: 'application/schema+json' };
   if (activeOutputId === 'jsonPathOutput') return { name: 'jsonpath-result.json', type: 'application/json' };
   if (activeOutputId === 'convertedOutput') return { name: 'converted-output.txt', type: 'text/plain' };

@@ -1,19 +1,3 @@
-function generateTypescript() {
-  try {
-    currentJson = parseInput();
-    hasValidJson = true;
-    var schema = buildSchema(currentJson, getRootName());
-    document.getElementById('typescriptOutput').textContent = buildTypescriptInterfaces(schema);
-    setStatus('TypeScript interfaces generated for ' + schema.tables.length + ' interface(s)', 'valid');
-    showTab('typescript');
-  } catch (e) {
-    document.getElementById('typescriptOutput').textContent = 'Could not generate TypeScript:\n' + e.message;
-    setStatus('TypeScript generation failed: ' + e.message, 'invalid');
-    showTab('typescript');
-  }
-  updateStats();
-}
-
 function buildTypescriptInterfaces(schema) {
   return schema.tables.map(function(table) {
     var lines = ['export interface ' + table.className + ' {', '  id?: number;'];

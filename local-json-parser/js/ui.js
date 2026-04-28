@@ -40,7 +40,6 @@ function showTab(tab) {
   var output = document.getElementById('output');
   var sqlOutput = document.getElementById('sqlOutput');
   var modelsOutput = document.getElementById('modelsOutput');
-  var typescriptOutput = document.getElementById('typescriptOutput');
   var schemaOutput = document.getElementById('schemaOutput');
   var jsonPathOutput = document.getElementById('jsonPathOutput');
   var convertedOutput = document.getElementById('convertedOutput');
@@ -51,7 +50,6 @@ function showTab(tab) {
   var treeTab = document.getElementById('treeTab');
   var sqlTab = document.getElementById('sqlTab');
   var modelsTab = document.getElementById('modelsTab');
-  var typescriptTab = document.getElementById('typescriptTab');
   var schemaTab = document.getElementById('schemaTab');
   var jsonPathTab = document.getElementById('jsonPathTab');
   var convertedTab = document.getElementById('convertedTab');
@@ -60,7 +58,6 @@ function showTab(tab) {
   output.classList.add('hidden');
   sqlOutput.classList.add('hidden');
   modelsOutput.classList.add('hidden');
-  typescriptOutput.classList.add('hidden');
   schemaOutput.classList.add('hidden');
   jsonPathOutput.classList.add('hidden');
   convertedOutput.classList.add('hidden');
@@ -71,7 +68,6 @@ function showTab(tab) {
   treeTab.classList.remove('active');
   sqlTab.classList.remove('active');
   modelsTab.classList.remove('active');
-  typescriptTab.classList.remove('active');
   schemaTab.classList.remove('active');
   jsonPathTab.classList.remove('active');
   convertedTab.classList.remove('active');
@@ -99,14 +95,6 @@ function showTab(tab) {
     document.getElementById('outputHint').textContent = 'Language Models';
     if (!modelsOutput.textContent) {
       modelsOutput.textContent = 'Click Generate Models to create boilerplate from valid JSON.';
-    }
-  } else if (tab === 'typescript') {
-    typescriptOutput.classList.remove('hidden');
-    typescriptTab.classList.add('active');
-    activeOutputId = 'typescriptOutput';
-    document.getElementById('outputHint').textContent = 'TypeScript Interfaces';
-    if (!typescriptOutput.textContent) {
-      typescriptOutput.textContent = 'Click TypeScript to generate interfaces from valid JSON.';
     }
   } else if (tab === 'schema') {
     schemaOutput.classList.remove('hidden');

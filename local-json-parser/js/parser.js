@@ -46,7 +46,6 @@ function formatJson() {
     document.getElementById('output').textContent = '';
     document.getElementById('sqlOutput').textContent = '';
     document.getElementById('modelsOutput').textContent = '';
-    document.getElementById('typescriptOutput').textContent = '';
     document.getElementById('schemaOutput').textContent = '';
     document.getElementById('jsonPathOutput').textContent = '';
     document.getElementById('convertedOutput').textContent = '';
@@ -108,7 +107,10 @@ function escapeJsonString() {
 function unescapeJsonString() {
   try {
     var text = document.getElementById('input').value.trim();
-    document.getElementById('output').textContent = JSON.parse(text);
+    var parsed = JSON.parse(text);
+    document.getElementById('output').textContent = typeof parsed === 'string'
+      ? parsed
+      : JSON.stringify(parsed, null, getIndent());
     setStatus('Escaped JSON string converted back to normal text', 'valid');
   } catch (e) {
     document.getElementById('output').textContent = 'Invalid escaped JSON string:\n' + e.message + '\n\nExample input: "Hello\\nWorld"';

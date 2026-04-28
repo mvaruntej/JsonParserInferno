@@ -8,12 +8,12 @@ const scriptDir = path.join(root, 'js');
 const ids = [
   'formatButton', 'minifyButton', 'escapeButton', 'unescapeButton', 'copyButton',
   'downloadButton', 'clearButton', 'sampleButton', 'generateSqlButton',
-  'generateModelsButton', 'generateBothButton', 'generateTypescriptButton',
+  'generateModelsButton', 'generateBothButton',
   'generateSchemaButton', 'jsonToCsvButton', 'jsonToYamlButton', 'decodeJwtButton',
   'graphButton', 'expandTreeButton', 'collapseTreeButton', 'copyTreePathButton',
   'indentSize', 'fileInput', 'input', 'formattedTab', 'treeTab', 'sqlTab', 'modelsTab',
-  'typescriptTab', 'schemaTab', 'jsonPathTab', 'graphTab', 'convertedTab', 'jwtTab',
-  'status', 'stats', 'output', 'sqlOutput', 'modelsOutput', 'typescriptOutput',
+  'schemaTab', 'jsonPathTab', 'graphTab', 'convertedTab', 'jwtTab',
+  'status', 'stats', 'output', 'sqlOutput', 'modelsOutput',
   'schemaOutput', 'jsonPathOutput', 'convertedOutput', 'jwtOutput', 'graphOutput', 'tree', 'outputHint',
   'rootName', 'sqlDialect', 'modelLanguage', 'treeSearch', 'jsonPathInput',
   'jsonPathButton', 'clearStorageButton', 'dropZone', 'resizeHandle'
@@ -121,14 +121,26 @@ elements.input.value = JSON.stringify({
 formatJson();
 if (!elements.output.textContent.includes('"Varun"')) throw new Error('Formatted output missing expected data');
 
+elements.input.value = JSON.stringify([{ name: 'A' }, { name: 'B' }]);
+unescapeJsonString();
+if (elements.output.textContent.includes('[object Object]')) throw new Error('Unescape collapsed objects to [object Object]');
+if (!elements.output.textContent.includes('"name"')) throw new Error('Unescape did not format object/array JSON');
+elements.input.value = JSON.stringify({
+  name: 'Varun',
+  active: true,
+  orders: [{ items: [{ sku: 'A1', qty: 2 }] }]
+});
+
 generateSql();
 if (!elements.sqlOutput.textContent.includes('CREATE TABLE')) throw new Error('SQL output missing CREATE TABLE');
 
 generateModels();
 if (!elements.modelsOutput.textContent.includes('class')) throw new Error('Model output missing Python class');
 
-generateTypescript();
-if (!elements.typescriptOutput.textContent.includes('export interface')) throw new Error('TypeScript output missing interface');
+elements.modelLanguage.value = 'typescript';
+generateModels();
+if (!elements.modelsOutput.textContent.includes('export interface')) throw new Error('TypeScript model output missing interface');
+elements.modelLanguage.value = 'python';
 
 generateJsonSchema();
 if (!elements.schemaOutput.textContent.includes('"$schema"')) throw new Error('JSON Schema output missing $schema');

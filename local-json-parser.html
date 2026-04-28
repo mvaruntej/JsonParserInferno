@@ -38,7 +38,6 @@
         <span class="group-label">Generate</span>
         <button id="generateSqlButton">SQL</button>
         <button id="generateModelsButton">Models</button>
-        <button id="generateTypescriptButton">TypeScript</button>
         <button id="generateSchemaButton">Schema</button>
         <button id="generateBothButton">SQL + Models</button>
       </div>
@@ -69,6 +68,7 @@
           <option value="python">Python</option>
           <option value="java">Java</option>
           <option value="go">Go</option>
+          <option value="typescript">TypeScript</option>
         </select>
         <input type="text" id="rootName" value="api_response" aria-label="Root table name" title="Root table/class name" />
       </div>
@@ -123,7 +123,6 @@
           <span class="tab" id="treeTab">Tree View</span>
           <span class="tab" id="sqlTab">SQL DDL</span>
           <span class="tab" id="modelsTab">Models</span>
-          <span class="tab" id="typescriptTab">TypeScript</span>
           <span class="tab" id="schemaTab">JSON Schema</span>
           <span class="tab" id="jsonPathTab">JSONPath</span>
           <span class="tab" id="graphTab">Graph</span>
@@ -133,7 +132,6 @@
         <pre id="output"></pre>
         <pre id="sqlOutput" class="hidden"></pre>
         <pre id="modelsOutput" class="hidden"></pre>
-        <pre id="typescriptOutput" class="hidden"></pre>
         <pre id="schemaOutput" class="hidden"></pre>
         <pre id="jsonPathOutput" class="hidden"></pre>
         <pre id="convertedOutput" class="hidden"></pre>
